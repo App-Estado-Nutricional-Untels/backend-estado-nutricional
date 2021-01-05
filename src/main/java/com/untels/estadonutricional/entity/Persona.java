@@ -1,6 +1,7 @@
 package com.untels.estadonutricional.entity;
 
 import com.untels.estadonutricional.enums.SexoNombre;
+import com.untels.estadonutricional.security.entity.Usuario;
 import java.util.GregorianCalendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -57,6 +59,9 @@ public class Persona {
     )
     private GregorianCalendar fechaNacimiento;
 
+    @OneToOne(mappedBy = "persona")
+    private Usuario usuario;
+
     public Persona() {
     }
 
@@ -66,7 +71,8 @@ public class Persona {
             String apematerno,
             SexoNombre sexo,
             String dni,
-            GregorianCalendar fechaNacimiento
+            GregorianCalendar fechaNacimiento,
+            Usuario usuario
     ) {
         this.nombre = nombre;
         this.apepaterno = apepaterno;
@@ -74,6 +80,7 @@ public class Persona {
         this.sexo = sexo;
         this.dni = dni;
         this.fechaNacimiento = fechaNacimiento;
+        this.usuario = usuario;
     }
 
     public int getId() {
@@ -130,6 +137,14 @@ public class Persona {
 
     public void setFechaNacimiento(GregorianCalendar fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

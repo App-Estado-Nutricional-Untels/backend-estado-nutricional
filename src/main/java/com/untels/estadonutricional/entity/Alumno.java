@@ -1,6 +1,7 @@
-
 package com.untels.estadonutricional.entity;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,25 +9,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "alumno")
 public class Alumno {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(
-        name = "codigo_universitario",
-        unique = true,
-        nullable = false,
-        length = 10 
+            name = "codigo_universitario",
+            unique = true,
+            nullable = false,
+            length = 10
     )
     private String codigoUniversitario;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "persona_id",
@@ -34,10 +36,16 @@ public class Alumno {
     )
     private Persona persona;
 
+    @OneToMany(mappedBy = "alumno")
+    private Set<DatoAntropometrico> datoAntropometrico = new HashSet<>();
+
     public Alumno() {
     }
 
-    public Alumno(String codigoUniversitario, Persona persona) {
+    public Alumno(
+            String codigoUniversitario,
+            Persona persona
+    ) {
         this.codigoUniversitario = codigoUniversitario;
         this.persona = persona;
     }
@@ -66,9 +74,22 @@ public class Alumno {
         this.persona = persona;
     }
 
+    public Set<DatoAntropometrico> getDatoAntropometrico() {
+        return datoAntropometrico;
+    }
+
+    public void setDatoAntropometrico(Set<DatoAntropometrico> datoAntropometrico) {
+        this.datoAntropometrico = datoAntropometrico;
+    }
+
     @Override
     public String toString() {
-        return "Alumno{" + "id=" + id + ", codigoUniversitario=" + codigoUniversitario + ", persona=" + persona + '}';
+        return "Alumno{"
+                + "id=" + id
+                + ", codigoUniversitario=" + codigoUniversitario
+                + ", persona=" + persona
+                + ", datoAntropometrico=" + datoAntropometrico
+                + '}';
     }
-    
+
 }

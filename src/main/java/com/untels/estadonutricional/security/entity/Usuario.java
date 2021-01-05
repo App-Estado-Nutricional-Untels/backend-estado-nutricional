@@ -1,5 +1,6 @@
 package com.untels.estadonutricional.security.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.untels.estadonutricional.entity.Persona;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,14 +38,15 @@ public class Usuario {
             referencedColumnName = "id"
     )
     private Rol rol;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "persona_id",
             referencedColumnName = "id"
     )
+    @JsonIgnore
     private Persona persona;
-    
+
     public Usuario() {
     }
 

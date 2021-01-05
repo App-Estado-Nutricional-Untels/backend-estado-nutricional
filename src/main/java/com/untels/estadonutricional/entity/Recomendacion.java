@@ -1,6 +1,6 @@
-
 package com.untels.estadonutricional.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.GregorianCalendar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,36 +15,41 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "recomendacion")
 public class Recomendacion {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(
-        name = "mensaje",
-        unique = false,
-        nullable = false 
+            name = "mensaje",
+            unique = false,
+            nullable = false
     )
     private String mensaje;
 
     @Column(
-        name = "fecha_registro",
-        unique = false,
-        nullable = false 
+            name = "fecha_registro",
+            unique = false,
+            nullable = false
     )
     private GregorianCalendar fechaRegistro;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "dato_antropometrico_id",
             referencedColumnName = "id"
     )
+    @JsonIgnore
     private DatoAntropometrico datoAntropometrico;
 
     public Recomendacion() {
     }
 
-    public Recomendacion(String mensaje, GregorianCalendar fechaRegistro, DatoAntropometrico datoAntropometrico) {
+    public Recomendacion(
+            String mensaje,
+            GregorianCalendar fechaRegistro,
+            DatoAntropometrico datoAntropometrico
+    ) {
         this.mensaje = mensaje;
         this.fechaRegistro = fechaRegistro;
         this.datoAntropometrico = datoAntropometrico;
@@ -81,6 +86,5 @@ public class Recomendacion {
     public void setDatoAntropometrico(DatoAntropometrico datoAntropometrico) {
         this.datoAntropometrico = datoAntropometrico;
     }
- 
-    
+
 }

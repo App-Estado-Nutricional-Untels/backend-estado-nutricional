@@ -1,6 +1,6 @@
-
 package com.untels.estadonutricional.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.GregorianCalendar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,78 +10,80 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "dato_antropometrico")
 public class DatoAntropometrico {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(
-        name = "estatura",
-        nullable = false 
+            name = "estatura",
+            nullable = false
     )
     private float estatura;
 
     @Column(
-        name = "peso",
-        nullable = false 
+            name = "peso",
+            nullable = false
     )
     private float peso;
 
     @Column(
-        name = "contorno_cintura",
-        nullable = false 
+            name = "contorno_cintura",
+            nullable = false
     )
     private float contornoCintura;
 
     @Column(
-        name = "contorno_cadera",
-        nullable = false 
+            name = "contorno_cadera",
+            nullable = false
     )
     private float contornoCadera;
 
     @Column(
-        name = "nivel_estres",
-        nullable = false 
+            name = "nivel_estres",
+            nullable = false
     )
     private float nivelEstres;
 
     @Column(
-        name = "actividad_fisica",
-        nullable = false 
+            name = "actividad_fisica",
+            nullable = false
     )
     private float actividadFisica;
 
     @Column(
-        name = "rendimiento_academico",
-        nullable = false 
+            name = "rendimiento_academico",
+            nullable = false
     )
     private String rendimientoAcademico;
 
     @Column(
-        name = "fecha_registro",
-        nullable = false 
+            name = "fecha_registro",
+            nullable = false
     )
     private GregorianCalendar fechaRegistro;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "alumno_id",
             referencedColumnName = "id"
     )
+    @JsonIgnore
     private Alumno alumno;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "categoria_icc_id",
             referencedColumnName = "id"
     )
     private CategoriaICC categoriaICC;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "categoria_imc_id",
@@ -89,10 +91,26 @@ public class DatoAntropometrico {
     )
     private CategoriaIMC categoriaIMC;
 
+    @OneToOne(mappedBy = "datoAntropometrico")
+    private Recomendacion recomendacion;
+
     public DatoAntropometrico() {
     }
 
-    public DatoAntropometrico(float estatura, float peso, float contornoCintura, float contornoCadera, float nivelEstres, float actividadFisica, String rendimientoAcademico, GregorianCalendar fechaRegistro, Alumno alumno, CategoriaICC categoriaICC, CategoriaIMC categoriaIMC) {
+    public DatoAntropometrico(
+            float estatura,
+            float peso,
+            float contornoCintura,
+            float contornoCadera,
+            float nivelEstres,
+            float actividadFisica,
+            String rendimientoAcademico,
+            GregorianCalendar fechaRegistro,
+            Alumno alumno,
+            CategoriaICC categoriaICC,
+            CategoriaIMC categoriaIMC,
+            Recomendacion recomendacion
+    ) {
         this.estatura = estatura;
         this.peso = peso;
         this.contornoCintura = contornoCintura;
@@ -104,6 +122,7 @@ public class DatoAntropometrico {
         this.alumno = alumno;
         this.categoriaICC = categoriaICC;
         this.categoriaIMC = categoriaIMC;
+        this.recomendacion = recomendacion;
     }
 
     public int getId() {
@@ -202,9 +221,31 @@ public class DatoAntropometrico {
         this.categoriaIMC = categoriaIMC;
     }
 
+    public Recomendacion getRecomendacion() {
+        return recomendacion;
+    }
+
+    public void setRecomendacion(Recomendacion recomendacion) {
+        this.recomendacion = recomendacion;
+    }
+
     @Override
     public String toString() {
-        return "DatoAntropometrico{" + "id=" + id + ", estatura=" + estatura + ", peso=" + peso + ", contornoCintura=" + contornoCintura + ", contornoCadera=" + contornoCadera + ", nivelEstres=" + nivelEstres + ", actividadFisica=" + actividadFisica + ", rendimientoAcademico=" + rendimientoAcademico + ", fechaRegistro=" + fechaRegistro + ", alumno=" + alumno + ", categoriaICC=" + categoriaICC + ", categoriaIMC=" + categoriaIMC + '}';
+        return "DatoAntropometrico{"
+                + "id=" + id
+                + ", estatura=" + estatura
+                + ", peso=" + peso
+                + ", contornoCintura=" + contornoCintura
+                + ", contornoCadera=" + contornoCadera
+                + ", nivelEstres=" + nivelEstres
+                + ", actividadFisica=" + actividadFisica
+                + ", rendimientoAcademico=" + rendimientoAcademico
+                + ", fechaRegistro=" + fechaRegistro
+                + ", alumno=" + alumno
+                + ", categoriaICC=" + categoriaICC
+                + ", categoriaIMC=" + categoriaIMC
+                + ", recomendacion=" + recomendacion
+                + '}';
     }
-    
+
 }

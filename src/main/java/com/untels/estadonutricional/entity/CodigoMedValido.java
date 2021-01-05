@@ -1,4 +1,3 @@
-
 package com.untels.estadonutricional.entity;
 
 import javax.persistence.Column;
@@ -11,14 +10,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "codigo_medico_valido")
 public class CodigoMedValido {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(
-        name = "codigo_medico",
-        nullable = false,
-        length = 50
+            name = "codigo_medico",
+            nullable = false,
+            length = 50
     )
     private String codigoMedico;
 
@@ -47,7 +46,10 @@ public class CodigoMedValido {
 
     @Override
     public String toString() {
-        return "CodigoMedValido{" + "id=" + id + ", codigoMedico=" + codigoMedico + '}';
+        return "CodigoMedValido{"
+                + "id=" + id
+                + ", codigoMedico=" + codigoMedico
+                + '}';
     }
-    
+
 }

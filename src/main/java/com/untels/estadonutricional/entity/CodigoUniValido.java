@@ -10,16 +10,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "codigo_uni_valido")
 public class CodigoUniValido {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(
-        name = "codigo_universitario",
-        unique = true,
-        nullable = false,
-        length = 10 
+            name = "codigo_universitario",
+            unique = true,
+            nullable = false,
+            length = 10
     )
     private String codigoUniversitario;
 
@@ -48,7 +48,10 @@ public class CodigoUniValido {
 
     @Override
     public String toString() {
-        return "CodigoUniValido{" + "id=" + id + ", codigoUniversitario=" + codigoUniversitario + '}';
+        return "CodigoUniValido{"
+                + "id=" + id
+                + ", codigoUniversitario=" + codigoUniversitario
+                + '}';
     }
-    
+
 }

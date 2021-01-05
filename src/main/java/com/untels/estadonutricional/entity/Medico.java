@@ -13,16 +13,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "medico")
 public class Medico {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     @Column(
-        name = "codigo_medico",
-        unique = true,
-        nullable = false,
-        length = 50
+            name = "codigo_medico",
+            unique = true,
+            nullable = false,
+            length = 50
     )
     private String codigoMedico;
 
@@ -67,7 +67,11 @@ public class Medico {
 
     @Override
     public String toString() {
-        return "Medico{" + "id=" + id + ", codigoMedico=" + codigoMedico + ", persona=" + persona + '}';
+        return "Medico{"
+                + "id=" + id
+                + ", codigoMedico=" + codigoMedico
+                + ", persona=" + persona
+                + '}';
     }
 
 }
