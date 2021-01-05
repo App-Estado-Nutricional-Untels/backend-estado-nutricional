@@ -1,4 +1,4 @@
-## Backend Estado Nutricional
+﻿## Backend Estado Nutricional
 
 - Java 8^
 - SpringBoot
@@ -62,3 +62,15 @@ JAVA_HOME=C:\path\a\jdkjava
 ```
 
 7. Si todo funcionó, siempre puede usar el script `init.bat` para inicializar el programa a partir del punto `5.`
+
+
+### Estilo de los commits
+
+```
+Título del commit
+Descripción................
+...........................
+...........................
+
+close #123
+```
