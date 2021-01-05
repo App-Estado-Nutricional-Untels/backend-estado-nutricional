@@ -1,6 +1,5 @@
-
 package com.untels.estadonutricional.entity;
-    
+
 import com.untels.estadonutricional.enums.SexoNombre;
 import java.util.GregorianCalendar;
 import javax.persistence.Column;
@@ -11,57 +10,64 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-    
+
 @Entity
 @Table(name = "persona")
 public class Persona {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(
-        name = "nombre",
-        nullable = false
+            name = "nombre",
+            nullable = false
     )
     private String nombre;
 
     @Column(
-        name = "ape_paterno",
-        nullable = false 
+            name = "ape_paterno",
+            nullable = false
     )
     private String apepaterno;
 
     @Column(
-        name = "ape_materno",
-        nullable = false 
+            name = "ape_materno",
+            nullable = false
     )
     private String apematerno;
-    
+
     @Column(
-        name = "sexo",
-        nullable = false 
+            name = "sexo",
+            nullable = false
     )
     @Enumerated(EnumType.STRING)
     private SexoNombre sexo;
 
     @Column(
-        name = "dni",
-        unique = true,
-        nullable = false 
+            name = "dni",
+            unique = true,
+            nullable = false
     )
-    private int dni;
+    private String dni;
 
     @Column(
-        name = "fecha_nacimiento",
-        nullable = true 
+            name = "fecha_nacimiento",
+            nullable = true
     )
     private GregorianCalendar fechaNacimiento;
 
     public Persona() {
     }
 
-    public Persona(String nombre, String apepaterno, String apematerno, SexoNombre sexo, int dni, GregorianCalendar fechaNacimiento) {
+    public Persona(
+            String nombre,
+            String apepaterno,
+            String apematerno,
+            SexoNombre sexo,
+            String dni,
+            GregorianCalendar fechaNacimiento
+    ) {
         this.nombre = nombre;
         this.apepaterno = apepaterno;
         this.apematerno = apematerno;
@@ -110,11 +116,11 @@ public class Persona {
         this.sexo = sexo;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -128,7 +134,15 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", nombre=" + nombre + ", apepaterno=" + apepaterno + ", apematerno=" + apematerno + ", sexo=" + sexo + ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + '}';
+        return "Persona{"
+                + "id=" + id
+                + ", nombre=" + nombre
+                + ", apepaterno=" + apepaterno
+                + ", apematerno=" + apematerno
+                + ", sexo=" + sexo
+                + ", dni=" + dni
+                + ", fechaNacimiento=" + fechaNacimiento
+                + '}';
     }
-    
+
 }
