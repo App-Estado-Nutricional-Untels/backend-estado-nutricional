@@ -69,6 +69,18 @@ public class DatoAntropometrico {
     )
     private GregorianCalendar fechaRegistro;
 
+    @Column(
+            name = "valor_imc",
+            nullable = false
+    )
+    private float valorIMC;
+    
+    @Column(
+            name = "valor_icc",
+            nullable = false
+    )
+    private float valorICC;
+    
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "alumno_id",
@@ -97,20 +109,7 @@ public class DatoAntropometrico {
     public DatoAntropometrico() {
     }
 
-    public DatoAntropometrico(
-            float estatura,
-            float peso,
-            float contornoCintura,
-            float contornoCadera,
-            float nivelEstres,
-            float actividadFisica,
-            String rendimientoAcademico,
-            GregorianCalendar fechaRegistro,
-            Alumno alumno,
-            CategoriaICC categoriaICC,
-            CategoriaIMC categoriaIMC,
-            Recomendacion recomendacion
-    ) {
+    public DatoAntropometrico(float estatura, float peso, float contornoCintura, float contornoCadera, float nivelEstres, float actividadFisica, String rendimientoAcademico, GregorianCalendar fechaRegistro, float valorIMC, float valorICC, Alumno alumno, CategoriaICC categoriaICC, CategoriaIMC categoriaIMC, Recomendacion recomendacion) {
         this.estatura = estatura;
         this.peso = peso;
         this.contornoCintura = contornoCintura;
@@ -119,6 +118,8 @@ public class DatoAntropometrico {
         this.actividadFisica = actividadFisica;
         this.rendimientoAcademico = rendimientoAcademico;
         this.fechaRegistro = fechaRegistro;
+        this.valorIMC = valorIMC;
+        this.valorICC = valorICC;
         this.alumno = alumno;
         this.categoriaICC = categoriaICC;
         this.categoriaIMC = categoriaIMC;
@@ -227,6 +228,22 @@ public class DatoAntropometrico {
 
     public void setRecomendacion(Recomendacion recomendacion) {
         this.recomendacion = recomendacion;
+    }
+
+    public float getValorIMC() {
+        return valorIMC;
+    }
+
+    public void setValorIMC(float valorIMC) {
+        this.valorIMC = valorIMC;
+    }
+
+    public float getValorICC() {
+        return valorICC;
+    }
+
+    public void setValorICC(float valorICC) {
+        this.valorICC = valorICC;
     }
 
     @Override
