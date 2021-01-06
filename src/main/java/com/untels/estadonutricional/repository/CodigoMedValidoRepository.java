@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface CodigoMedValidoRepository extends
         JpaRepository<CodigoMedValido, Integer> {
 
+    public boolean existsByCodigoMedico(String codigoMedico);
 }

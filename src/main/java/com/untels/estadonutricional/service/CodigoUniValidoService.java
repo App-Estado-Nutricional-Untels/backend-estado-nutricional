@@ -9,4 +9,8 @@ public class CodigoUniValidoService {
 
     @Autowired
     private CodigoUniValidoRepository codigoUniValidoRepository;
+
+    public boolean esValido(String codigo) {
+        return codigoUniValidoRepository.existsByCodigoUniversitario(codigo);
+    }
 }

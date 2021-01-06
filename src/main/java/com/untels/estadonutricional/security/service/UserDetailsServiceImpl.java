@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String correoElectronico)
             throws UsernameNotFoundException {
         Usuario usuario = usuarioService
-                .getOneByCorreoElectronico(correoElectronico)
+                .obtenerUnoPorCorreoElectronico(correoElectronico)
                 .get();
 
         return UsuarioPrincipal.build(usuario);

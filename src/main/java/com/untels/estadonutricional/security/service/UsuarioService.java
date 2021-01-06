@@ -15,21 +15,21 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    public List<Usuario> getAll() {
+    public List<Usuario> obtenerTodos() {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> getOneByCorreoElectronico(
+    public Optional<Usuario> obtenerUnoPorCorreoElectronico(
             String correoElectronico
     ) {
         return usuarioRepository.findByCorreoElectronico(correoElectronico);
     }
 
-    public boolean existsByCorreoElectronico(String correoElectronico) {
+    public boolean existePorCorreoElectronico(String correoElectronico) {
         return usuarioRepository.existsByCorreoElectronico(correoElectronico);
     }
 
-    public void save(Usuario usuario) {
+    public void guardar(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
 }

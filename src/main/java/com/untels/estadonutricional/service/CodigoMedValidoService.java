@@ -9,4 +9,8 @@ public class CodigoMedValidoService {
 
     @Autowired
     private CodigoMedValidoRepository codigoMedValidoRepository;
+
+    public boolean esValido(String codigo) {
+        return codigoMedValidoRepository.existsByCodigoMedico(codigo);
+    }
 }
