@@ -1,5 +1,6 @@
 package com.untels.estadonutricional.service;
 
+import com.untels.estadonutricional.entity.Persona;
 import com.untels.estadonutricional.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,5 +15,9 @@ public class PersonaService {
 
     public boolean existePorDni(String dni) {
         return personaRepository.existsByDni(dni);
+    }
+
+    public void guardar(Persona persona) {
+        personaRepository.save(persona);
     }
 }
