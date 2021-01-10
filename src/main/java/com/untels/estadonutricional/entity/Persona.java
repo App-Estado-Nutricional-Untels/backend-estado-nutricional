@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name = "persona")
@@ -58,6 +59,10 @@ public class Persona {
             nullable = true
     )
     private GregorianCalendar fechaNacimiento;
+
+    @Formula("YEAR(CURDATE()) - YEAR(fecha_nacimiento) - "
+            + "(RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(fecha_nacimiento, 5))")
+    private Integer edad;
 
     @OneToOne(mappedBy = "persona")
     private Usuario usuario;
@@ -145,6 +150,14 @@ public class Persona {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
     }
 
     @Override
