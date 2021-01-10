@@ -35,7 +35,7 @@ public class JwtEntryPoint implements AuthenticationEntryPoint {
         ObjectMapper mapper = new ObjectMapper();
 
         RespuestaError respError = new RespuestaError(
-                new Error("token", "No autorizado"));
+                new Error("cualquiera", "Credenciales incorrectos"));
         String jsonString = mapper.writeValueAsString(respError);
 
         out.print(jsonString);

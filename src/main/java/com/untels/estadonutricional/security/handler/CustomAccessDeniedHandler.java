@@ -28,11 +28,10 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         ObjectMapper mapper = new ObjectMapper();
 
         RespuestaError respError = new RespuestaError(
-                new Error("token", "Credenciales inválidos"));
+                new Error("token", "No autorizado"));
         String jsonString = mapper.writeValueAsString(respError);
 
         out.print(jsonString);
-        out.print("Credenciales inválidos");
     }
 
 }
