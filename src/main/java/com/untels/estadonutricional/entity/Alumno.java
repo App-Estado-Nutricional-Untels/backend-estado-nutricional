@@ -37,7 +37,7 @@ public class Alumno {
     private Persona persona;
 
     @OneToMany(mappedBy = "alumno")
-    private Set<DatoAntropometrico> datoAntropometrico = new HashSet<>();
+    private Set<DatoAntropometrico> datosAntropometricos = new HashSet<>();
 
     public Alumno() {
     }
@@ -74,12 +74,12 @@ public class Alumno {
         this.persona = persona;
     }
 
-    public Set<DatoAntropometrico> getDatoAntropometrico() {
-        return datoAntropometrico;
+    public Set<DatoAntropometrico> getDatosAntropometricos() {
+        return datosAntropometricos;
     }
 
-    public void setDatoAntropometrico(Set<DatoAntropometrico> datoAntropometrico) {
-        this.datoAntropometrico = datoAntropometrico;
+    public void setDatosAntropometricos(Set<DatoAntropometrico> datosAntropometricos) {
+        this.datosAntropometricos = datosAntropometricos;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Alumno {
                 + "id=" + id
                 + ", codigoUniversitario=" + codigoUniversitario
                 + ", persona=" + persona
-                + ", datoAntropometrico=" + datoAntropometrico
+                + ", datosAntropometricos=" + datosAntropometricos
                 + '}';
     }
 
