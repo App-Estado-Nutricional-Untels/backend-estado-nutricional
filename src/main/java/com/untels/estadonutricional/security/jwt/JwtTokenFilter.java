@@ -26,7 +26,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     UserDetailsServiceImpl userDetailsService;
 
     @Override
-
+    
     protected void doFilterInternal(
             HttpServletRequest req,
             HttpServletResponse res,

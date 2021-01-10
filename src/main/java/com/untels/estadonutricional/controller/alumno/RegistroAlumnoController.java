@@ -1,19 +1,17 @@
 
-package com.untels.estadonutricional.security.controller.usuario;
+package com.untels.estadonutricional.controller.alumno;
 
+import com.untels.estadonutricional.dto.request.RegistroAlumnoBody;
 import com.untels.estadonutricional.dto.response.Error;
 import com.untels.estadonutricional.dto.response.Respuesta;
 import com.untels.estadonutricional.dto.response.RespuestaError;
 import com.untels.estadonutricional.enums.SexoNombre;
-import com.untels.estadonutricional.security.dto.request.RegistroBody;
 import com.untels.estadonutricional.security.entity.Usuario;
 import com.untels.estadonutricional.security.enums.RolNombre;
 import com.untels.estadonutricional.security.service.NuevoUsuarioService;
 import com.untels.estadonutricional.security.service.UsuarioService;
 import com.untels.estadonutricional.service.AlumnoService;
-import com.untels.estadonutricional.service.CodigoMedValidoService;
 import com.untels.estadonutricional.service.CodigoUniValidoService;
-import com.untels.estadonutricional.service.MedicoService;
 import com.untels.estadonutricional.service.PersonaService;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +19,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,10 +28,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/usuarios")
 @CrossOrigin
 @Validated
-public class RegistroController {
+public class RegistroAlumnoController {
     
     @Autowired
     private UsuarioService usuarioService;
@@ -41,26 +40,21 @@ public class RegistroController {
     private PersonaService personaService;
 
     @Autowired
-    private MedicoService medicoService;
-
-    @Autowired
     private AlumnoService alumnoService;
-
-    @Autowired
-    private CodigoMedValidoService codigoMedValidoService;
 
     @Autowired
     private CodigoUniValidoService codigoUniValidoService;
 
     @Autowired
     NuevoUsuarioService nuevoUsuarioService;
-
-    @PostMapping("/registro")
+    
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','MEDICO')")
+    @PostMapping("/alumnos")
     public ResponseEntity<?> nuevoUsuario(
-            @Valid @RequestBody RegistroBody registroBody
+            @Valid @RequestBody RegistroAlumnoBody registroAlumnoBody
     ) {
         // Validación de errores de duplicación
-        List<Error> errores = getErrores(registroBody);
+        List<Error> errores = getErrores(registroAlumnoBody);
 
         if (!errores.isEmpty()) {
             return new ResponseEntity<>(
@@ -68,23 +62,21 @@ public class RegistroController {
                     HttpStatus.BAD_REQUEST);
         }
 
-        RolNombre rolNombre = getRolNombre(registroBody.getRol());
-
         // Guardado de usuario, persona y opcionalmente médico o alumno
         Usuario usuario = nuevoUsuarioService.crearUsuarioCompleto(
                 new NuevoUsuarioService.UsuarioCompleto(
-                        registroBody.getNombres(),
-                        registroBody.getApePaterno(),
-                        registroBody.getApeMaterno(),
-                        registroBody.getDni(),
-                        registroBody.getCorreoElectronico(),
-                        registroBody.getCodigo(),
+                        registroAlumnoBody.getNombres(),
+                        registroAlumnoBody.getApePaterno(),
+                        registroAlumnoBody.getApeMaterno(),
+                        registroAlumnoBody.getDni(),
+                        registroAlumnoBody.getCorreoElectronico(),
+                        registroAlumnoBody.getCodigo(),
                         null,
-                        (registroBody.getSexo().equalsIgnoreCase("F")
+                        (registroAlumnoBody.getSexo().equalsIgnoreCase("F")
                         ? SexoNombre.F
                         : SexoNombre.M),
-                        rolNombre,
-                        registroBody.getClave()));
+                        RolNombre.ROLE_ALUMNO,
+                        registroAlumnoBody.getClave()));
 
         return new ResponseEntity(new Respuesta(
                 usuario,
@@ -92,11 +84,11 @@ public class RegistroController {
                 HttpStatus.OK);
     }
 
-    private List<Error> getErrores(RegistroBody registroBody) {
+    private List<Error> getErrores(RegistroAlumnoBody registroAlumnoBody) {
         List<Error> errores = new ArrayList<>();
 
         if (usuarioService.existePorCorreoElectronico(
-                registroBody.getCorreoElectronico()
+                registroAlumnoBody.getCorreoElectronico()
         )) {
             errores.add(new Error(
                     "correoElectronico",
@@ -104,23 +96,21 @@ public class RegistroController {
         }
 
         if (personaService.existePorDni(
-                registroBody.getDni()
+                registroAlumnoBody.getDni()
         )) {
             errores.add(new Error(
                     "dni",
                     "el dni ya existe"));
         }
 
-        if (registroBody.getRol().equalsIgnoreCase("ALUMNO")
-                || registroBody.getRol().equalsIgnoreCase("MEDICO")) {
-            if (registroBody.getCodigo() == null) {
+        if (registroAlumnoBody.getCodigo() == null) {
                 errores.add(new Error(
                         "codigo",
                         "el codigo no puede ser nulo"));
             } else {
-                if (registroBody.getRol().equalsIgnoreCase("ALUMNO")) {
-                    if (alumnoService.existePorCodigoUniversitario(
-                            registroBody.getCodigo()
+            
+                if (alumnoService.existePorCodigoUniversitario(
+                            registroAlumnoBody.getCodigo()
                     )) {
                         errores.add(new Error(
                                 "codigo",
@@ -128,42 +118,15 @@ public class RegistroController {
                     }
 
                     if (!codigoUniValidoService.esValido(
-                            registroBody.getCodigo()
+                            registroAlumnoBody.getCodigo()
                     )) {
                         errores.add(new Error(
                                 "codigo",
                                 "el codigo no está permitido"));
                     }
-                } else if (registroBody.getRol().equalsIgnoreCase("MEDICO")) {
-                    if (medicoService.existePorCodigoMedico(
-                            registroBody.getCodigo()
-                    )) {
-                        errores.add(new Error(
-                                "codigo",
-                                "el codigo ya existe"));
-                    }
-
-                    if (!codigoMedValidoService.esValido(
-                            registroBody.getCodigo()
-                    )) {
-                        errores.add(new Error(
-                                "codigo",
-                                "el codigo no está permitido"));
-                    }
-                }
             }
-        }
 
         return errores;
-    }
-
-    private RolNombre getRolNombre(String nombre) {
-        if (nombre.equalsIgnoreCase("alumno")) {
-            return RolNombre.ROLE_ALUMNO;
-        }
-
-        return RolNombre.ROLE_MEDICO;
-
     }
 
 }
