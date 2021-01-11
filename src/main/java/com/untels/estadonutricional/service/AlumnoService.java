@@ -25,4 +25,16 @@ public class AlumnoService {
     public Alumno obtenerUnoPorPersona(Persona persona) {
         return alumnoRepository.findByPersona(persona).get();
     }
+
+    public long totalAlumnos() {
+        return alumnoRepository.countAll();
+    }
+
+    public long totalAlumnosMasculinos() {
+        return alumnoRepository.countBySexoMasculino();
+    }
+
+    public long totalAlumnosFemeninos() {
+        return alumnoRepository.countBySexoFemenino();
+    }
 }
