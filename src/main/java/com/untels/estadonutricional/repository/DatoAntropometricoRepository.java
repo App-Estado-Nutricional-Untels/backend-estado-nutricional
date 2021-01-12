@@ -4,6 +4,7 @@ import com.untels.estadonutricional.entity.Alumno;
 import com.untels.estadonutricional.entity.DatoAntropometrico;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,4 +20,10 @@ public interface DatoAntropometricoRepository extends
     public boolean existsById(int id);
 
     public Optional<DatoAntropometrico> findById(int id);
+    
+    @Query(
+            value = "select * from dato_antropometrico d inner join alumno a on d.alumno_id=a.id where a.id = ?1 order by d.fecha_registro desc limit 1",
+            nativeQuery = true
+            )
+    public Optional<DatoAntropometrico> findLastByAlumno(int id);
 }

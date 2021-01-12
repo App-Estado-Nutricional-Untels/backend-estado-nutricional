@@ -11,6 +11,7 @@ import com.untels.estadonutricional.utils.icc.ICCCalculator;
 import com.untels.estadonutricional.utils.icc.ICCCalculoException;
 import com.untels.estadonutricional.utils.imc.IMCCalculator;
 import com.untels.estadonutricional.utils.imc.IMCCalculoException;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,10 @@ public class DatosAntropometricosService {
     
     public DatoAntropometrico obtenerAntropometricoPorAlumno(Alumno alumno){
         return datoAntropometricoRepository.findByAlumno(alumno).get();
+    }
+    
+    public Optional<DatoAntropometrico> obtenerUltimoPorAlumnoId(int id){
+        return datoAntropometricoRepository.findLastByAlumno(id);
     }
     
     public boolean existeRegistrosPorAlumno(Alumno alumno){
