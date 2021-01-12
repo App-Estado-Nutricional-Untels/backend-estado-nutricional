@@ -14,5 +14,5 @@ public interface UsuarioRepository
     Optional<Usuario> findByCorreoElectronico(String correoElectronico);
 
     boolean existsByCorreoElectronico(String correoElectronico);
-
+    
 }

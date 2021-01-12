@@ -1,10 +1,14 @@
 package com.untels.estadonutricional.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.untels.estadonutricional.enums.CategoriaICC;
+import com.untels.estadonutricional.enums.CategoriaIMC;
 import java.util.GregorianCalendar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -88,20 +92,20 @@ public class DatoAntropometrico {
     )
     @JsonIgnore
     private Alumno alumno;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "categoria_icc_id",
-            referencedColumnName = "id"
+    
+    @Column(
+            name = "categoria_imc",
+            nullable = false
     )
-    private CategoriaICC categoriaICC;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "categoria_imc_id",
-            referencedColumnName = "id"
+    @Enumerated(EnumType.STRING)
+    private CategoriaIMC categoriaimc;
+    
+    @Column(
+            name = "categoria_icc",
+            nullable = false
     )
-    private CategoriaIMC categoriaIMC;
+    @Enumerated(EnumType.STRING)
+    private CategoriaICC categoriaicc;
 
     @OneToOne(mappedBy = "datoAntropometrico")
     private Recomendacion recomendacion;
@@ -109,7 +113,7 @@ public class DatoAntropometrico {
     public DatoAntropometrico() {
     }
 
-    public DatoAntropometrico(float estatura, float peso, float contornoCintura, float contornoCadera, float nivelEstres, float actividadFisica, String rendimientoAcademico, GregorianCalendar fechaRegistro, float valorIMC, float valorICC, Alumno alumno, CategoriaICC categoriaICC, CategoriaIMC categoriaIMC, Recomendacion recomendacion) {
+    public DatoAntropometrico(float estatura, float peso, float contornoCintura, float contornoCadera, float nivelEstres, float actividadFisica, String rendimientoAcademico, GregorianCalendar fechaRegistro, Alumno alumno) {
         this.estatura = estatura;
         this.peso = peso;
         this.contornoCintura = contornoCintura;
@@ -118,12 +122,7 @@ public class DatoAntropometrico {
         this.actividadFisica = actividadFisica;
         this.rendimientoAcademico = rendimientoAcademico;
         this.fechaRegistro = fechaRegistro;
-        this.valorIMC = valorIMC;
-        this.valorICC = valorICC;
         this.alumno = alumno;
-        this.categoriaICC = categoriaICC;
-        this.categoriaIMC = categoriaIMC;
-        this.recomendacion = recomendacion;
     }
 
     public int getId() {
@@ -206,22 +205,6 @@ public class DatoAntropometrico {
         this.alumno = alumno;
     }
 
-    public CategoriaICC getCategoriaICC() {
-        return categoriaICC;
-    }
-
-    public void setCategoriaICC(CategoriaICC categoriaICC) {
-        this.categoriaICC = categoriaICC;
-    }
-
-    public CategoriaIMC getCategoriaIMC() {
-        return categoriaIMC;
-    }
-
-    public void setCategoriaIMC(CategoriaIMC categoriaIMC) {
-        this.categoriaIMC = categoriaIMC;
-    }
-
     public Recomendacion getRecomendacion() {
         return recomendacion;
     }
@@ -246,23 +229,20 @@ public class DatoAntropometrico {
         this.valorICC = valorICC;
     }
 
-    @Override
-    public String toString() {
-        return "DatoAntropometrico{"
-                + "id=" + id
-                + ", estatura=" + estatura
-                + ", peso=" + peso
-                + ", contornoCintura=" + contornoCintura
-                + ", contornoCadera=" + contornoCadera
-                + ", nivelEstres=" + nivelEstres
-                + ", actividadFisica=" + actividadFisica
-                + ", rendimientoAcademico=" + rendimientoAcademico
-                + ", fechaRegistro=" + fechaRegistro
-                + ", alumno=" + alumno
-                + ", categoriaICC=" + categoriaICC
-                + ", categoriaIMC=" + categoriaIMC
-                + ", recomendacion=" + recomendacion
-                + '}';
+    public CategoriaIMC getCategoriaimc() {
+        return categoriaimc;
     }
 
+    public void setCategoriaimc(CategoriaIMC categoriaimc) {
+        this.categoriaimc = categoriaimc;
+    }
+
+    public CategoriaICC getCategoriaicc() {
+        return categoriaicc;
+    }
+
+    public void setCategoriaicc(CategoriaICC categoriaicc) {
+        this.categoriaicc = categoriaicc;
+    }
+    
 }
