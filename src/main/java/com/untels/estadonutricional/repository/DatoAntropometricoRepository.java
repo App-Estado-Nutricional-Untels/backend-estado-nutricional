@@ -9,7 +9,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DatoAntropometricoRepository extends
         JpaRepository<DatoAntropometrico, Integer> {
-    
-    Optional<DatoAntropometrico> findByAlumno(Alumno alumno);
+
+    public Optional<DatoAntropometrico> findByAlumno(Alumno alumno);
+
     public long countByAlumno(Alumno alumno);
+
+    public boolean existsByAlumno(Alumno alumno);
+
+    public boolean existsById(int id);
+
+    public Optional<DatoAntropometrico> findById(int id);
 }

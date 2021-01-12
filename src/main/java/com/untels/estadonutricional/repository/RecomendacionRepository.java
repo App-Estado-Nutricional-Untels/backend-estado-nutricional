@@ -1,5 +1,6 @@
 package com.untels.estadonutricional.repository;
 
+import com.untels.estadonutricional.entity.DatoAntropometrico;
 import com.untels.estadonutricional.entity.Recomendacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface RecomendacionRepository extends
         JpaRepository<Recomendacion, Integer> {
 
+    public boolean existsByDatoAntropometrico(DatoAntropometrico datoAntropometrico);
 }
