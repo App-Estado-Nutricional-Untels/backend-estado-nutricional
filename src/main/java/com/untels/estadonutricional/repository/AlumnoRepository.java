@@ -17,6 +17,10 @@ public interface AlumnoRepository extends JpaRepository<Alumno, Integer>,
     public boolean existsByPersona(Persona persona);
 
     Optional<Alumno> findByPersona(Persona persona);
+    
+    public boolean existsById(int id);
+    
+    public Alumno findById(int id);
 
     @Query("select count(*) from Alumno a inner join a.persona")
     long countAll();

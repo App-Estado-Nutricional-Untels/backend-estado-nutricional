@@ -12,7 +12,7 @@ public interface DatoAntropometricoRepository extends
         JpaRepository<DatoAntropometrico, Integer> {
 
     public Optional<DatoAntropometrico> findByAlumno(Alumno alumno);
-
+    
     public long countByAlumno(Alumno alumno);
 
     public boolean existsByAlumno(Alumno alumno);

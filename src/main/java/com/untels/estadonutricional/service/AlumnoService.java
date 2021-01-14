@@ -37,4 +37,12 @@ public class AlumnoService {
     public long totalAlumnosFemeninos() {
         return alumnoRepository.countBySexoFemenino();
     }
+    
+    public boolean existeAlumnoPorId(int id){
+        return alumnoRepository.existsById(id);
+    }
+    
+    public Alumno obtenerUnoPorId(int id){
+        return alumnoRepository.findById(id);
+    }
 }
