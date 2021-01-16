@@ -30,6 +30,10 @@ public class RegistroDatosAntroBody {
     private float actividadFisica;
 
     @NotBlank
+    @Pattern(
+            regexp = "PESIMO|MALO|NORMAL|BUENO|EXCELENTE",
+            flags = Pattern.Flag.CASE_INSENSITIVE
+    )
     private String rendimientoAcademico;
 
     @NotBlank

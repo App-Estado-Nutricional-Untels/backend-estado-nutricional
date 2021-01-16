@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.untels.estadonutricional.enums.CategoriaICC;
 import com.untels.estadonutricional.enums.CategoriaIMC;
 import com.untels.estadonutricional.enums.NivelEstres;
+import com.untels.estadonutricional.enums.RendimientoAcademico;
 import java.util.GregorianCalendar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,7 +52,7 @@ public class DatoAntropometrico {
     private float contornoCadera;
 
     @Column(
-            name = "mivel_estres",
+            name = "nivel_estres",
             nullable = false
     )
     @Enumerated(EnumType.STRING)
@@ -67,7 +68,8 @@ public class DatoAntropometrico {
             name = "rendimiento_academico",
             nullable = false
     )
-    private String rendimientoAcademico;
+    @Enumerated(EnumType.STRING)
+    private RendimientoAcademico rendimientoAcademico;
 
     @Column(
             name = "fecha_registro",
@@ -122,7 +124,7 @@ public class DatoAntropometrico {
             float contornoCadera,
             NivelEstres nivelEstres,
             float actividadFisica,
-            String rendimientoAcademico,
+            RendimientoAcademico rendimientoAcademico,
             GregorianCalendar fechaRegistro,
             Alumno alumno
     ) {
@@ -193,11 +195,11 @@ public class DatoAntropometrico {
         this.actividadFisica = actividadFisica;
     }
 
-    public String getRendimientoAcademico() {
+    public RendimientoAcademico getRendimientoAcademico() {
         return rendimientoAcademico;
     }
 
-    public void setRendimientoAcademico(String rendimientoAcademico) {
+    public void setRendimientoAcademico(RendimientoAcademico rendimientoAcademico) {
         this.rendimientoAcademico = rendimientoAcademico;
     }
 

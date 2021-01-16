@@ -6,6 +6,7 @@ import com.untels.estadonutricional.dto.response.RespuestaError;
 import com.untels.estadonutricional.entity.Alumno;
 import com.untels.estadonutricional.entity.DatoAntropometrico;
 import com.untels.estadonutricional.enums.NivelEstres;
+import com.untels.estadonutricional.enums.RendimientoAcademico;
 import com.untels.estadonutricional.security.dto.request.RegistroMensualDatosAntropometricosBody;
 import com.untels.estadonutricional.security.entity.Usuario;
 import com.untels.estadonutricional.security.service.DatosAntropometricosService;
@@ -83,7 +84,7 @@ public class RegistroMensualDatosAntropometricosController {
                         registroMensualDatosAntroBody.getContornoCadera(),
                         NivelEstres.fromString(registroMensualDatosAntroBody.getNivelEstres()),
                         registroMensualDatosAntroBody.getActividadFisica(),
-                        registroMensualDatosAntroBody.getRendimientoAcademico(),
+                        RendimientoAcademico.fromString(registroMensualDatosAntroBody.getRendimientoAcademico()),
                         new GregorianCalendar(),
                         alumno));
 
