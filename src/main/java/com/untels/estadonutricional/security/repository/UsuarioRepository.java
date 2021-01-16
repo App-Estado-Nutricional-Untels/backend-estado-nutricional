@@ -15,4 +15,6 @@ public interface UsuarioRepository
 
     boolean existsByCorreoElectronico(String correoElectronico);
     
+    public boolean existsById(int id);
+    
 }

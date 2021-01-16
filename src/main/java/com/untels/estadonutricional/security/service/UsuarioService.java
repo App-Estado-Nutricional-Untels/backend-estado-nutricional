@@ -32,4 +32,12 @@ public class UsuarioService {
     public void guardar(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
+    
+    public void eliminarUsuarioPorId(int id){
+        usuarioRepository.deleteById(id);
+    }
+    
+    public boolean existePorId(int id){
+        return usuarioRepository.existsById(id);
+    }
 }
