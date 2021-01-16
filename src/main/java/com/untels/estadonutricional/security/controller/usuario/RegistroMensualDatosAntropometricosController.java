@@ -1,4 +1,3 @@
-
 package com.untels.estadonutricional.security.controller.usuario;
 
 import com.untels.estadonutricional.dto.response.Error;
@@ -31,50 +30,50 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @Validated
 public class RegistroMensualDatosAntropometricosController {
-    
+
     @Autowired
     private DatosAntropometricosService datoAntropometricoService;
-    
+
     @Autowired
     private UsuarioService usuarioService;
-    
+
     @Autowired
     private AlumnoService alumnoService;
-    
+
     @PreAuthorize("hasRole('ALUMNO')")
     @PostMapping
     public ResponseEntity<?> registroMensualDatosAntropometricos(
-        @Valid @RequestBody RegistroMensualDatosAntropometricosBody registroMensualDatosAntroBody,
-        Authentication authentication
-    ){
-        
+            @Valid @RequestBody RegistroMensualDatosAntropometricosBody registroMensualDatosAntroBody,
+            Authentication authentication
+    ) {
+
         int dia = new GregorianCalendar().get(Calendar.DATE);
-        
-        if( !(dia>=1 && dia<=12) ){
+
+        if (!(dia >= 1 && dia <= 12)) {
             return new ResponseEntity(
-                new RespuestaError(new Error("fecha","El registro esta disponible en la primera semana de cada mes")),
-                HttpStatus.BAD_REQUEST);
+                    new RespuestaError(new Error("fecha", "El registro esta disponible en la primera semana de cada mes")),
+                    HttpStatus.BAD_REQUEST);
         }
-        
+
         String correo = authentication.getName();
         Usuario usuario = usuarioService.obtenerUnoPorCorreoElectronico(correo).get();
         Alumno alumno = alumnoService.obtenerUnoPorPersona(usuario.getPersona());
-        
-        if(usuario==null || alumno==null || !datoAntropometricoService.existeRegistrosPorAlumno(alumno)){
+
+        if (usuario == null || alumno == null || !datoAntropometricoService.existeRegistrosPorAlumno(alumno)) {
             return new ResponseEntity(
-                new RespuestaError(new Error("alumno","no existen registros iniciales")),
-                HttpStatus.BAD_REQUEST);
+                    new RespuestaError(new Error("alumno", "no existen registros iniciales")),
+                    HttpStatus.BAD_REQUEST);
         }
-        
+
         int mes = new GregorianCalendar().get(Calendar.MONTH);
         DatoAntropometrico ultimoDatoAntropometrico = datoAntropometricoService.obtenerUltimoPorAlumnoId(alumno.getId()).get();
-        
-        if(mes == ultimoDatoAntropometrico.getFechaRegistro().get(Calendar.MONTH)){
+
+        if (mes == ultimoDatoAntropometrico.getFechaRegistro().get(Calendar.MONTH)) {
             return new ResponseEntity(
-                new RespuestaError(new Error("registro","ya existen datos antropometricos registrados en este mes")),
-                HttpStatus.BAD_REQUEST);
+                    new RespuestaError(new Error("registro", "ya existen datos antropometricos registrados en este mes")),
+                    HttpStatus.BAD_REQUEST);
         }
-        
+
         DatoAntropometrico datoAntropometrico = datoAntropometricoService.registrarDatosAntropometricos(
                 new DatoAntropometrico(
                         registroMensualDatosAntroBody.getEstatura(),
@@ -86,11 +85,11 @@ public class RegistroMensualDatosAntropometricosController {
                         registroMensualDatosAntroBody.getRendimientoAcademico(),
                         new GregorianCalendar(),
                         alumno));
-        
+
         return new ResponseEntity(new Respuesta(
                 datoAntropometrico,
                 "Datos antropometricos registrado"),
                 HttpStatus.OK);
-        
+
     }
 }

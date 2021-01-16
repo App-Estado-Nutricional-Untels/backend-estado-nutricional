@@ -60,8 +60,7 @@ public class Persona {
     )
     private GregorianCalendar fechaNacimiento;
 
-    @Formula("YEAR(CURDATE()) - YEAR(fecha_nacimiento) - "
-            + "(RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(fecha_nacimiento, 5))")
+    @Formula("YEAR(now()) - YEAR(fecha_nacimiento) - ( DAYOFYEAR(now()) < DAYOFYEAR(fecha_nacimiento) )")
     private Integer edad;
 
     @OneToOne(mappedBy = "persona")
