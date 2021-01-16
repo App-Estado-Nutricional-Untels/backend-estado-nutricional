@@ -2,6 +2,7 @@ package com.untels.estadonutricional.repository;
 
 import com.untels.estadonutricional.entity.Alumno;
 import com.untels.estadonutricional.entity.DatoAntropometrico;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +27,10 @@ public interface DatoAntropometricoRepository extends
             nativeQuery = true
             )
     public Optional<DatoAntropometrico> findLastByAlumno(int id);
+    
+    @Query(
+            value = "select * from dato_antropometrico d where d.alumno_id=?1",
+            nativeQuery = true
+            )
+    public List<DatoAntropometrico> findAllByAlumnoId(int id);
 }

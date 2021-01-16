@@ -3,6 +3,7 @@ package com.untels.estadonutricional.service;
 import com.untels.estadonutricional.entity.Alumno;
 import com.untels.estadonutricional.entity.DatoAntropometrico;
 import com.untels.estadonutricional.repository.DatoAntropometricoRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,14 @@ public class DatoAntropometricoService {
 
     public void guardar(DatoAntropometrico datoAntropometrico) {
         antropometricoRepository.save(datoAntropometrico);
+    }
+    
+    public List<DatoAntropometrico> listarDatosAntropometricos(int id) {
+        return antropometricoRepository.findAllByAlumnoId(id);
+    }
+    
+    public boolean existeRegistrosPorAlumno(Alumno alumno){
+        long registros = antropometricoRepository.countByAlumno(alumno);
+        return registros>0;
     }
 }
