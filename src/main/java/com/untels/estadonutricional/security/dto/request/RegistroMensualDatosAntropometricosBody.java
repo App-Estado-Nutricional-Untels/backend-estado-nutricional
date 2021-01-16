@@ -1,11 +1,11 @@
-
 package com.untels.estadonutricional.security.dto.request;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class RegistroMensualDatosAntropometricosBody {
-    
+
     @Min(0)
     private float estatura;
 
@@ -18,8 +18,12 @@ public class RegistroMensualDatosAntropometricosBody {
     @Min(0)
     private float contornoCadera;
 
-    @Min(0)
-    private float nivelEstres;
+    @NotBlank
+    @Pattern(
+            regexp = "LEVE|MODERADO|SEVERO",
+            flags = Pattern.Flag.CASE_INSENSITIVE
+    )
+    private String nivelEstres;
 
     @Min(0)
     private float actividadFisica;
@@ -59,11 +63,11 @@ public class RegistroMensualDatosAntropometricosBody {
         this.contornoCadera = contornoCadera;
     }
 
-    public float getNivelEstres() {
+    public String getNivelEstres() {
         return nivelEstres;
     }
 
-    public void setNivelEstres(float nivelEstres) {
+    public void setNivelEstres(String nivelEstres) {
         this.nivelEstres = nivelEstres;
     }
 
@@ -82,7 +86,5 @@ public class RegistroMensualDatosAntropometricosBody {
     public void setRendimientoAcademico(String rendimientoAcademico) {
         this.rendimientoAcademico = rendimientoAcademico;
     }
-    
-    
-    
+
 }

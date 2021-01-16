@@ -1,4 +1,3 @@
-
 package com.untels.estadonutricional.security.dto.request;
 
 import com.untels.estadonutricional.utils.RegExpPatterns;
@@ -7,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 public class RegistroDatosAntroBody {
-    
+
     @Min(0)
     private float estatura;
 
@@ -20,8 +19,12 @@ public class RegistroDatosAntroBody {
     @Min(0)
     private float contornoCadera;
 
-    @Min(0)
-    private float nivelEstres;
+    @NotBlank
+    @Pattern(
+            regexp = "LEVE|MODERADO|SEVERO",
+            flags = Pattern.Flag.CASE_INSENSITIVE
+    )
+    private String nivelEstres;
 
     @Min(0)
     private float actividadFisica;
@@ -68,11 +71,11 @@ public class RegistroDatosAntroBody {
         this.contornoCadera = contornoCadera;
     }
 
-    public float getNivelEstres() {
+    public String getNivelEstres() {
         return nivelEstres;
     }
 
-    public void setNivelEstres(float nivelEstres) {
+    public void setNivelEstres(String nivelEstres) {
         this.nivelEstres = nivelEstres;
     }
 

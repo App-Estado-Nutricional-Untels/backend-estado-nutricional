@@ -3,6 +3,7 @@ package com.untels.estadonutricional.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.untels.estadonutricional.enums.CategoriaICC;
 import com.untels.estadonutricional.enums.CategoriaIMC;
+import com.untels.estadonutricional.enums.NivelEstres;
 import java.util.GregorianCalendar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,10 +51,11 @@ public class DatoAntropometrico {
     private float contornoCadera;
 
     @Column(
-            name = "nivel_estres",
+            name = "mivel_estres",
             nullable = false
     )
-    private float nivelEstres;
+    @Enumerated(EnumType.STRING)
+    private NivelEstres nivelEstres;
 
     @Column(
             name = "actividad_fisica",
@@ -78,13 +80,13 @@ public class DatoAntropometrico {
             nullable = false
     )
     private float valorIMC;
-    
+
     @Column(
             name = "valor_icc",
             nullable = false
     )
     private float valorICC;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "alumno_id",
@@ -92,14 +94,14 @@ public class DatoAntropometrico {
     )
     @JsonIgnore
     private Alumno alumno;
-    
+
     @Column(
             name = "categoria_imc",
             nullable = false
     )
     @Enumerated(EnumType.STRING)
     private CategoriaIMC categoriaimc;
-    
+
     @Column(
             name = "categoria_icc",
             nullable = false
@@ -113,7 +115,17 @@ public class DatoAntropometrico {
     public DatoAntropometrico() {
     }
 
-    public DatoAntropometrico(float estatura, float peso, float contornoCintura, float contornoCadera, float nivelEstres, float actividadFisica, String rendimientoAcademico, GregorianCalendar fechaRegistro, Alumno alumno) {
+    public DatoAntropometrico(
+            float estatura,
+            float peso,
+            float contornoCintura,
+            float contornoCadera,
+            NivelEstres nivelEstres,
+            float actividadFisica,
+            String rendimientoAcademico,
+            GregorianCalendar fechaRegistro,
+            Alumno alumno
+    ) {
         this.estatura = estatura;
         this.peso = peso;
         this.contornoCintura = contornoCintura;
@@ -165,11 +177,11 @@ public class DatoAntropometrico {
         this.contornoCadera = contornoCadera;
     }
 
-    public float getNivelEstres() {
+    public NivelEstres getNivelEstres() {
         return nivelEstres;
     }
 
-    public void setNivelEstres(float nivelEstres) {
+    public void setNivelEstres(NivelEstres nivelEstres) {
         this.nivelEstres = nivelEstres;
     }
 
@@ -244,5 +256,5 @@ public class DatoAntropometrico {
     public void setCategoriaicc(CategoriaICC categoriaicc) {
         this.categoriaicc = categoriaicc;
     }
-    
+
 }
