@@ -17,4 +17,6 @@ public interface UsuarioRepository
     
     public boolean existsById(int id);
     
+    public Usuario findById(int id);
+    
 }
