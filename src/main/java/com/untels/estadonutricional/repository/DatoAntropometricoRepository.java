@@ -27,7 +27,7 @@ public interface DatoAntropometricoRepository extends
             nativeQuery = true
     )
     public Optional<DatoAntropometrico> findLastByAlumno(int id);
-
+    
     @Query(
             value = "select * from dato_antropometrico d where d.alumno_id=?1",
             nativeQuery = true
