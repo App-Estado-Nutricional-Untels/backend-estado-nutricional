@@ -1,5 +1,6 @@
 package com.untels.estadonutricional.service;
 
+import com.untels.estadonutricional.dto.response.EvolucionICC;
 import com.untels.estadonutricional.dto.response.EvolucionIMC;
 import com.untels.estadonutricional.entity.Alumno;
 import com.untels.estadonutricional.entity.DatoAntropometrico;
@@ -46,6 +47,11 @@ public class DatoAntropometricoService {
         return registrosimc;
     }
     
+    public List<EvolucionICC> listarEvolucionICCPorAlumnoId(int id){
+        List<EvolucionICC> registrosicc = evolucionICC(antropometricoRepository.findAllByAlumnoId(id));
+        return registrosicc;
+    }
+    
     public boolean existeRegistrosPorAlumno(Alumno alumno) {
         long registros = antropometricoRepository.countByAlumno(alumno);
         return registros > 0;
@@ -59,14 +65,24 @@ public class DatoAntropometricoService {
         return antropometricoRepository.findAllByPromedioICCGrupal();
     }
     
+    //-----
     private List<EvolucionIMC> evolucionIMC(List<DatoAntropometrico> list){
         List<EvolucionIMC> registrosimc = new ArrayList<EvolucionIMC>();
-        
         for(DatoAntropometrico datoantro: list){
             String fechaRegistro = datoantro.getFechaRegistro().get(Calendar.DATE)+"/"+(datoantro.getFechaRegistro().get(Calendar.MONTH)+1)+"/"+datoantro.getFechaRegistro().get(Calendar.YEAR);
             registrosimc.add(new EvolucionIMC(datoantro.getValorIMC(), fechaRegistro));
         }
         
         return registrosimc;
+    }
+    
+    private List<EvolucionICC> evolucionICC(List<DatoAntropometrico> list){
+        List<EvolucionICC> registrosicc = new ArrayList<EvolucionICC>();
+        for(DatoAntropometrico datoantro: list){
+            String fechaRegistro = datoantro.getFechaRegistro().get(Calendar.DATE)+"/"+(datoantro.getFechaRegistro().get(Calendar.MONTH)+1)+"/"+datoantro.getFechaRegistro().get(Calendar.YEAR);
+            registrosicc.add(new EvolucionICC(datoantro.getValorICC(), fechaRegistro));
+        }
+        
+        return registrosicc;
     }
 }

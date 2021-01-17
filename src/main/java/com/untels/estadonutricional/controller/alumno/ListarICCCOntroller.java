@@ -2,7 +2,7 @@
 package com.untels.estadonutricional.controller.alumno;
 
 import com.untels.estadonutricional.dto.response.Error;
-import com.untels.estadonutricional.dto.response.EvolucionIMC;
+import com.untels.estadonutricional.dto.response.EvolucionICC;
 import com.untels.estadonutricional.dto.response.Respuesta;
 import com.untels.estadonutricional.dto.response.RespuestaError;
 import com.untels.estadonutricional.entity.Alumno;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/alumnos")
 @CrossOrigin
-public class ListarIMCController {
+public class ListarICCCOntroller {
     
     @Autowired
     AlumnoService alumnoService;
@@ -31,8 +31,8 @@ public class ListarIMCController {
     DatoAntropometricoService datoAntropometricoService;
     
     @PreAuthorize("hasAnyRole('ADMINISTRADOR','MEDICO','ALUMNO')")
-    @GetMapping("/imc-evolucion/{id}")
-    public ResponseEntity<?> listarRegistrosIMC(
+    @GetMapping("/icc-evolucion/{id}")
+    public ResponseEntity<?> listarRegistrosICC(
             @PathVariable("id") int id
     ){
         
@@ -50,15 +50,14 @@ public class ListarIMCController {
                     HttpStatus.BAD_REQUEST);
         }
         
-        List<EvolucionIMC> evolucionIMC = datoAntropometricoService.listarEvolucionIMCPorAlumnoId(id);
+        List<EvolucionICC> evolucionICC = datoAntropometricoService.listarEvolucionICCPorAlumnoId(id);
         
         return new ResponseEntity<>(
                 new Respuesta<>(
-                        evolucionIMC,
-                        "Listado de imc"
+                        evolucionICC,
+                        "Listado de icc"
                 ),
                 HttpStatus.OK
         );
     }
-    
 }
