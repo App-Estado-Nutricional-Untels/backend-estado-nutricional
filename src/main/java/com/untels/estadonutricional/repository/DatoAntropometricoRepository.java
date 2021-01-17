@@ -44,9 +44,28 @@ public interface DatoAntropometricoRepository extends
     )
     public List<PromedioIMCGrupal> findAllByPromedioIMCGrupal();
 
+    @Query(
+            value = "SELECT AVG(valor_icc) as promedioIcc, "
+            + "MONTH(fecha_registro) as mes, "
+            + "YEAR(fecha_registro) as anio "
+            + "FROM dato_antropometrico "
+            + "GROUP BY mes, anio;",
+            nativeQuery = true
+    )
+    public List<PromedioICCGrupal> findAllByPromedioICCGrupal();
+
     public static interface PromedioIMCGrupal {
 
         Float getPromedioIMC();
+
+        Integer getMes();
+
+        Integer getAnio();
+    }
+
+    public static interface PromedioICCGrupal {
+
+        Float getPromedioICC();
 
         Integer getMes();
 

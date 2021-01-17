@@ -3,6 +3,7 @@ package com.untels.estadonutricional.service;
 import com.untels.estadonutricional.entity.Alumno;
 import com.untels.estadonutricional.entity.DatoAntropometrico;
 import com.untels.estadonutricional.repository.DatoAntropometricoRepository;
+import com.untels.estadonutricional.repository.DatoAntropometricoRepository.PromedioICCGrupal;
 import com.untels.estadonutricional.repository.DatoAntropometricoRepository.PromedioIMCGrupal;
 import java.util.List;
 import java.util.Optional;
@@ -44,5 +45,9 @@ public class DatoAntropometricoService {
 
     public List<PromedioIMCGrupal> listarPromedioIMCGrupal() {
         return antropometricoRepository.findAllByPromedioIMCGrupal();
+    }
+
+    public List<PromedioICCGrupal> listarPromedioICCGrupal() {
+        return antropometricoRepository.findAllByPromedioICCGrupal();
     }
 }
