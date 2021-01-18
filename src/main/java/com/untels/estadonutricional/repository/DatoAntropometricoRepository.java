@@ -27,7 +27,7 @@ public interface DatoAntropometricoRepository extends
             nativeQuery = true
     )
     public Optional<DatoAntropometrico> findLastByAlumno(int id);
-    
+
     @Query(
             value = "select * from dato_antropometrico d where d.alumno_id=?1",
             nativeQuery = true
@@ -53,6 +53,16 @@ public interface DatoAntropometricoRepository extends
             nativeQuery = true
     )
     public List<PromedioICCGrupal> findAllByPromedioICCGrupal();
+
+    @Query(
+            value = "select * from dato_antropometrico "
+            + "where MONTH(fecha_registro) = ?1 AND "
+            + "YEAR(fecha_registro) = ?2 AND "
+            + "categoria_imc = ?3",
+            nativeQuery = true
+    )
+    public List<DatoAntropometrico> findAllByMesAnioCategoriaIMC(
+            Integer mes, Integer anio, String categoriaIMC);
 
     public static interface PromedioIMCGrupal {
 

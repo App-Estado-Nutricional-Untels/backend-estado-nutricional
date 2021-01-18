@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -38,6 +39,19 @@ public class ValidationErrorHandling {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     RespuestaError onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        List<Error> errores = new ArrayList<>();
+        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+            errores.add(new Error(fieldError.getField(), fieldError.getDefaultMessage()));
+        }
+        return new RespuestaError(errores);
+    }
+
+    @ExceptionHandler(value = BindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    RespuestaError handleBindException(
+            BindException e
+    ) {
         List<Error> errores = new ArrayList<>();
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
             errores.add(new Error(fieldError.getField(), fieldError.getDefaultMessage()));
