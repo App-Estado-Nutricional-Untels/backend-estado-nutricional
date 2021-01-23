@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface PersonaRepository extends JpaRepository<Persona, Integer> {
 
     public boolean existsByDni(String dni);
+
+    public Persona findById(int id);
 }

@@ -16,7 +16,15 @@ public class PersonaService {
     public boolean existePorDni(String dni) {
         return personaRepository.existsByDni(dni);
     }
+    
+    public Persona obtenerPorId(int id){
+        return personaRepository.findById(id);
+    }
 
+    public boolean existePersonaPorId(int id){
+        return personaRepository.existsById(id);
+    }
+    
     public void guardar(Persona persona) {
         personaRepository.save(persona);
     }

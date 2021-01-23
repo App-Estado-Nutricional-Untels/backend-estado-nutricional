@@ -21,7 +21,7 @@ public class AlumnoService {
     public boolean existePorPersona(Persona persona) {
         return alumnoRepository.existsByPersona(persona);
     }
-
+    
     public Alumno obtenerUnoPorPersona(Persona persona) {
         return alumnoRepository.findByPersona(persona).get();
     }
