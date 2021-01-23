@@ -2,7 +2,9 @@
 package com.untels.estadonutricional.controller.usuario;
 
 import com.untels.estadonutricional.dto.response.Error;
+import com.untels.estadonutricional.dto.response.Respuesta;
 import com.untels.estadonutricional.dto.response.RespuestaError;
+import com.untels.estadonutricional.security.entity.Usuario;
 import com.untels.estadonutricional.security.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,11 +35,15 @@ public class EliminarUsuarioController {
                     new RespuestaError(new Error("id","No existe usuario registrado con el id ingresado")),
                     HttpStatus.BAD_REQUEST);
         }
-        
+        Usuario usuario = usuarioService.obtenerUnoPorId(id);
         usuarioService.eliminarUsuarioPorId(id);
         
+        
         return new ResponseEntity<>(
-                "Usuario eliminado",
+                new Respuesta<>(
+                        usuario,
+                        "Usuario eliminado"
+                ),
                 HttpStatus.OK
         );
     }

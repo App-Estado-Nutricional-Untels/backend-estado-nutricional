@@ -2,6 +2,7 @@
 package com.untels.estadonutricional.controller.usuario;
 
 import com.untels.estadonutricional.dto.response.Error;
+import com.untels.estadonutricional.dto.response.Respuesta;
 import com.untels.estadonutricional.dto.response.RespuestaError;
 import com.untels.estadonutricional.security.entity.Usuario;
 import com.untels.estadonutricional.security.enums.RolNombre;
@@ -48,7 +49,10 @@ public class EliminarUsuarioAlumnoController {
         usuarioService.eliminarUsuarioPorId(id);
         
         return new ResponseEntity<>(
-                "Usuario eliminado",
+                new Respuesta<>(
+                        usuario,
+                        "Usuario alumno elminado"
+                ),
                 HttpStatus.OK
         );
         
