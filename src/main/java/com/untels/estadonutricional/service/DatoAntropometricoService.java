@@ -7,8 +7,8 @@ import com.untels.estadonutricional.entity.DatoAntropometrico;
 import com.untels.estadonutricional.repository.DatoAntropometricoRepository;
 import com.untels.estadonutricional.repository.DatoAntropometricoRepository.PromedioICCGrupal;
 import com.untels.estadonutricional.repository.DatoAntropometricoRepository.PromedioIMCGrupal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +67,10 @@ public class DatoAntropometricoService {
     
     //-----
     private List<EvolucionIMC> evolucionIMC(List<DatoAntropometrico> list){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         List<EvolucionIMC> registrosimc = new ArrayList<EvolucionIMC>();
         for(DatoAntropometrico datoantro: list){
-            String fechaRegistro = datoantro.getFechaRegistro().get(Calendar.DATE)+"/"+(datoantro.getFechaRegistro().get(Calendar.MONTH)+1)+"/"+datoantro.getFechaRegistro().get(Calendar.YEAR);
+            String fechaRegistro = sdf.format(datoantro.getFechaRegistro().getTime());
             registrosimc.add(new EvolucionIMC(datoantro.getValorIMC(), fechaRegistro));
         }
         
@@ -77,9 +78,10 @@ public class DatoAntropometricoService {
     }
     
     private List<EvolucionICC> evolucionICC(List<DatoAntropometrico> list){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         List<EvolucionICC> registrosicc = new ArrayList<EvolucionICC>();
         for(DatoAntropometrico datoantro: list){
-            String fechaRegistro = datoantro.getFechaRegistro().get(Calendar.DATE)+"/"+(datoantro.getFechaRegistro().get(Calendar.MONTH)+1)+"/"+datoantro.getFechaRegistro().get(Calendar.YEAR);
+            String fechaRegistro = sdf.format(datoantro.getFechaRegistro().getTime());
             registrosicc.add(new EvolucionICC(datoantro.getValorICC(), fechaRegistro));
         }
         
