@@ -1,4 +1,4 @@
-USE estadonutricional;
+﻿USE estadonutricional;
 
 INSERT INTO `rol`
 VALUES
@@ -52,13 +52,13 @@ INSERT INTO `persona` VALUES
 (1,'Administrador','Administrador','11111111','1995-01-01 00:01:00','Administrador','M'),
 (2,'Boada','Rueda','74536964','1996-12-29 00:07:00','Ignacio','M'),
 (3,'Ozorio','Santos','09982341','1984-01-01 00:11:00','Irma','F'),
-(4,'Castillo','Mendez','78934013',NULL,'Felipe','M'),
-(5,'Salamanca','Santos','99013101',NULL,'María','F'),
+(4,'Castillo','Mendez','78934013','1996-01-08 00:11:00','Felipe','M'),
+(5,'Salamanca','Santos','99013101','1998-11-16 00:10:00','María','F'),
 (6,'Ramirez','Hermosa','09812310','1995-01-01 00:10:00','David Jair','M'),
-(7,'Tapia','Urugiyo','31012076',NULL,'Antonio Uriel','M'),
-(8,'Frias','Bayón','88194012',NULL,'José Ramón','M'),
+(7,'Tapia','Urugiyo','31012076','2001-01-23 00:10:00','Antonio Uriel','M'),
+(8,'Frias','Bayón','88194012','1995-11-09 00:10:00','José Ramón','M'),
 (9,'Ávila','Saenz','56010310','1995-12-31 00:01:00','Verónica María','F'),
-(10,'Vadillo','Gutierrez','76641918',NULL,'Isabel Karla','F');
+(10,'Vadillo','Gutierrez','76641918','1996-03-19 00:10:00','Isabel Karla','F');
 
 INSERT INTO `medico` VALUES (1,'1000000000',3);
 
