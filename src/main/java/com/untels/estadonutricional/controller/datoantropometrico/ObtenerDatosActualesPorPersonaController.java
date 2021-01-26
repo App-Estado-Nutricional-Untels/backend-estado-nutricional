@@ -55,7 +55,7 @@ public class ObtenerDatosActualesPorPersonaController {
                     HttpStatus.BAD_REQUEST);
         }
 
-        Alumno alumno = alumnoService.obtenerUnoPorId(id);
+        Alumno alumno = alumnoService.obtenerUnoPorPersona(persona);
 
         if (!datoAntropometricoService.existeRegistrosPorAlumno(alumno)) {
             return new ResponseEntity(
@@ -63,7 +63,8 @@ public class ObtenerDatosActualesPorPersonaController {
                     HttpStatus.BAD_REQUEST);
         }
 
-        DatoAntropometrico datosAntropometricos = datoAntropometricoService.obtenerUltimoPorAlumnoId(id).get();
+        DatoAntropometrico datosAntropometricos = datoAntropometricoService
+                .obtenerUltimoPorAlumnoId(alumno.getId()).get();
 
         return new ResponseEntity<>(
                 new Respuesta<>(
