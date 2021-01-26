@@ -28,7 +28,7 @@ public class ListarUsuariosController {
             ListarUsuariosParam listarUsuariosParam
     ) {
         List<Usuario> alumnos = listarUsuariosService
-                .listarAlumnos(listarUsuariosParam);
+                .listarUsuarios(listarUsuariosParam);
         return new ResponseEntity<>(
                 new Respuesta<>(
                         alumnos,

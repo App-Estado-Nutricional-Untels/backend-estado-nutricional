@@ -17,7 +17,7 @@ public class ListarUsuariosService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public List<Usuario> listarAlumnos(ListarUsuariosParam listarUsuariosParam) {
+    public List<Usuario> listarUsuarios(ListarUsuariosParam listarUsuariosParam) {
         return usuarioRepository.findAll(
                 createSpecification(listarUsuariosParam));
     }
