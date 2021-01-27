@@ -92,11 +92,11 @@ public class CategoriaIMCReporteMensualService {
                 .filter(alumno -> alumno.getPersona().getSexo() == SexoNombre.M)
                 .collect(Collectors.counting());
 
-        float porcFemeninos = (alumnosFemeninos != 0)
-                ? (float) total / (float) alumnosFemeninos : 0;
+        float porcFemeninos = (total != 0)
+                ? (float) alumnosFemeninos / (float) total : 0;
 
-        float porcMasculinos = (alumnosMasculinos != 0)
-                ? (float) total / (float) alumnosMasculinos : 0;
+        float porcMasculinos = (total != 0)
+                ? (float) alumnosMasculinos / (float) total : 0;
 
         sexo.put("femenino", new CategoriaIMCReporteMensual.AgrupadorAlumnos(
                 porcFemeninos, (int) alumnosFemeninos));
@@ -120,8 +120,8 @@ public class CategoriaIMCReporteMensualService {
                     .filter(dato -> dato.getNivelEstres() == nivelEstres)
                     .collect(Collectors.counting());
 
-            float porcentaje = (totalNivelEstres != 0)
-                    ? (float) total / (float) totalNivelEstres : 0;
+            float porcentaje = (total != 0)
+                    ? (float) totalNivelEstres / (float) total : 0;
 
             estres.put(
                     StringUtils.snakeUpperToCamelCase(nivelEstres.name()),
@@ -148,8 +148,8 @@ public class CategoriaIMCReporteMensualService {
                     .filter(dato -> dato.getRendimientoAcademico() == rendimiento)
                     .collect(Collectors.counting());
 
-            float porcentaje = (totalRendimiento != 0)
-                    ? (float) total / (float) totalRendimiento : 0;
+            float porcentaje = (total != 0)
+                    ? (float) totalRendimiento / (float) total : 0;
 
             rendAcademico.put(
                     StringUtils.snakeUpperToCamelCase(rendimiento.name()),

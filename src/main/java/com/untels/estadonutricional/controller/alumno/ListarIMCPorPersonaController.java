@@ -1,4 +1,3 @@
-
 package com.untels.estadonutricional.controller.alumno;
 
 import com.untels.estadonutricional.dto.response.Error;
@@ -25,46 +24,47 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/personas")
 @CrossOrigin
 public class ListarIMCPorPersonaController {
-    
+
     @Autowired
     AlumnoService alumnoService;
-            
+
     @Autowired
     DatoAntropometricoService datoAntropometricoService;
-    
+
     @Autowired
     PersonaService personaService;
-    
+
     @PreAuthorize("hasAnyRole('ADMINISTRADOR','MEDICO','ALUMNO')")
     @GetMapping("/imc-evolucion/{id}")
     public ResponseEntity<?> listarRegistrosIMCPorPersona(
             @PathVariable("id") int id
-    ){
-        
-        if(!personaService.existePersonaPorId(id)){
+    ) {
+
+        if (!personaService.existePersonaPorId(id)) {
             return new ResponseEntity(
-                    new RespuestaError(new Error("id","No existe persona registrado con el id ingresado")),
+                    new RespuestaError(new Error("id", "No existe persona registrado con el id ingresado")),
                     HttpStatus.BAD_REQUEST);
         }
-        
+
         Persona persona = personaService.obtenerPorId(id);
-        
-        if(!alumnoService.existePorPersona(persona)){
+
+        if (!alumnoService.existePorPersona(persona)) {
             return new ResponseEntity(
-                    new RespuestaError(new Error("alumno","No existe alumno registrado con la persona ingresada")),
+                    new RespuestaError(new Error("alumno", "No existe alumno registrado con la persona ingresada")),
                     HttpStatus.BAD_REQUEST);
         }
-        
+
         Alumno alumno = alumnoService.obtenerUnoPorPersona(persona);
-        
-        if(!datoAntropometricoService.existeRegistrosPorAlumno(alumno)){
+
+        if (!datoAntropometricoService.existeRegistrosPorAlumno(alumno)) {
             return new ResponseEntity(
-                    new RespuestaError(new Error("datos antropometricos","No existe datos antropometricos registrados por el alumno")),
+                    new RespuestaError(new Error("datos antropometricos", "No existe datos antropometricos registrados por el alumno")),
                     HttpStatus.BAD_REQUEST);
         }
-        
-        List<EvolucionIMC> evolucionIMC = datoAntropometricoService.listarEvolucionIMCPorAlumnoId(id);
-        
+
+        List<EvolucionIMC> evolucionIMC
+                = datoAntropometricoService.listarEvolucionIMCPorAlumnoId(alumno.getId());
+
         return new ResponseEntity<>(
                 new Respuesta<>(
                         evolucionIMC,
