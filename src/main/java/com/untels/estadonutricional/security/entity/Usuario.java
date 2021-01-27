@@ -32,7 +32,14 @@ public class Usuario {
     )
     private String clave;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(
+            cascade = {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.PERSIST,
+                CascadeType.REFRESH
+            }
+    )
     @JoinColumn(
             name = "rol_id",
             referencedColumnName = "id"

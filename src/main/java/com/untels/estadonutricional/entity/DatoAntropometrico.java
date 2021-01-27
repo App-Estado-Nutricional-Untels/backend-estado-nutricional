@@ -111,7 +111,7 @@ public class DatoAntropometrico {
     @Enumerated(EnumType.STRING)
     private CategoriaICC categoriaicc;
 
-    @OneToOne(mappedBy = "datoAntropometrico")
+    @OneToOne(mappedBy = "datoAntropometrico", cascade = CascadeType.ALL)
     private Recomendacion recomendacion;
 
     public DatoAntropometrico() {

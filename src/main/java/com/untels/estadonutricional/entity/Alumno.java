@@ -36,7 +36,7 @@ public class Alumno {
     )
     private Persona persona;
 
-    @OneToMany(mappedBy = "alumno")
+    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL)
     private Set<DatoAntropometrico> datosAntropometricos = new HashSet<>();
 
     public Alumno() {

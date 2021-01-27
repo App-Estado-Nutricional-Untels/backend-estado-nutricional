@@ -1,8 +1,10 @@
 package com.untels.estadonutricional.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.untels.estadonutricional.enums.SexoNombre;
 import com.untels.estadonutricional.security.entity.Usuario;
 import java.util.GregorianCalendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -65,6 +67,20 @@ public class Persona {
 
     @OneToOne(mappedBy = "persona")
     private Usuario usuario;
+
+    @OneToOne(
+            mappedBy = "persona",
+            cascade = CascadeType.ALL
+    )
+    @JsonIgnore
+    private Alumno alumno;
+
+    @OneToOne(
+            mappedBy = "persona",
+            cascade = CascadeType.ALL
+    )
+    @JsonIgnore
+    private Medico medico;
 
     public Persona() {
     }
@@ -159,17 +175,20 @@ public class Persona {
         this.edad = edad;
     }
 
-    @Override
-    public String toString() {
-        return "Persona{"
-                + "id=" + id
-                + ", nombre=" + nombre
-                + ", apepaterno=" + apepaterno
-                + ", apematerno=" + apematerno
-                + ", sexo=" + sexo
-                + ", dni=" + dni
-                + ", fechaNacimiento=" + fechaNacimiento
-                + '}';
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
 }
