@@ -51,7 +51,7 @@ public class RegistroMensualDatosAntropometricosController {
 
         int dia = new GregorianCalendar().get(Calendar.DATE);
 
-        if (!(dia >= 1 && dia <= 12)) {
+        if (!(dia >= 1 && dia <= 7)) {
             return new ResponseEntity(
                     new RespuestaError(new Error("fecha", "El registro esta disponible en la primera semana de cada mes")),
                     HttpStatus.BAD_REQUEST);
@@ -68,9 +68,13 @@ public class RegistroMensualDatosAntropometricosController {
         }
 
         int mes = new GregorianCalendar().get(Calendar.MONTH);
+        int anio = new GregorianCalendar().get(Calendar.YEAR);
         DatoAntropometrico ultimoDatoAntropometrico = datoAntropometricoService.obtenerUltimoPorAlumnoId(alumno.getId()).get();
 
-        if (mes == ultimoDatoAntropometrico.getFechaRegistro().get(Calendar.MONTH)) {
+        if (
+            mes == ultimoDatoAntropometrico.getFechaRegistro().get(Calendar.MONTH) && 
+            anio == ultimoDatoAntropometrico.getFechaRegistro().get(Calendar.YEAR)
+        ) {
             return new ResponseEntity(
                     new RespuestaError(new Error("registro", "ya existen datos antropometricos registrados en este mes")),
                     HttpStatus.BAD_REQUEST);
